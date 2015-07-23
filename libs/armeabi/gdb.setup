@@ -1,0 +1,4 @@
+set solib-search-path /home/markl/Dropbox/Mark/LinuxShare/ar_android/obj/local/armeabi
+directory /home/markl/Applications/android-ndk-r4-crystax/build/platforms/android-5/arch-arm/usr/include
+directory /home/markl/Dropbox/Mark/LinuxShare/ar_android/jni
+directory /home/markl/Dropbox/Mark/LinuxShare/ar_android/jni
