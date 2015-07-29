@@ -14,6 +14,8 @@ TODO:
     (neither C++ or java)
 
 
+Remember to modify the path for source code in jni/Android.mk
+
 Original Build Instructions from 2011
 -------------------------------------
 
@@ -28,7 +30,8 @@ Original Build Instructions from 2011
    *This is needed because the default NDK does not contain the standard C++ library
    
 5. Modify ~/.bashrc with these lines:
-    # set path for android
+    set path for android
+
     PATH=~/Applications/android-sdk/tools:"${PATH}"
     PATH=~/Applications/android-sdk/platform-tools:"${PATH}"
     PATH=~/Applications/android-ndk-r4-crystax:"${PATH}"
