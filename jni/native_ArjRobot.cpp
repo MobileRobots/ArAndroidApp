@@ -12,19 +12,22 @@
  Print debug statement to logCat in eclipse
 */
 void debugPrint(const char *ln) {
-	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "NDK:DEBUG: %s", ln);
+	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "ArjRobot:DEBUG: %s", ln);
+}
+void ariaLogDebugPrint(const char *ln) {
+  __android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "ARIA:DEBUG: %s", ln);
 }
 void debugPrintInt(int i) {
-	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "NDK:DEBUG: %d", i);
+	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "ArjRobot:DEBUG: %d", i);
 }
 void debugPrintS(const char *s1, const char *s2) {
-	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "NDK:DEBUG: %s %s", s1, s2);
+	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "ArjRobot:DEBUG: %s %s", s1, s2);
 }
 void debugPrintSI(const char *s, int i) {
-	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "NDK:DEBUF: %s %d", s, i);
+	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "ArjRobot:DEBUG: %s %d", s, i);
 }
 void debugPrintDDD(double d1, double d2, double d3) {
-	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "NDK:DEBUG: %f %f %f", d1, d2, d3);
+	__android_log_print(ANDROID_LOG_DEBUG, "ArAndroid", "ArjRobot:DEBUG: %f %f %f", d1, d2, d3);
 }
 
 /**
@@ -330,6 +333,7 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_initialize
 	
 	// Try to connect
 	Aria::init();
+  ArLog::setFunctor(new ArGlobalFunctor1<const char*>(ariaLogDebugPrint));
 	debugPrintS("Connecting to ", cHost);
 	if (!myClient.blockingConnect(cHost, port, true, NULL, NULL, NULL)) {
 		debugPrint("Error connecting");
