@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArUrg_2_0.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArUrg_2_0.o: \
  /home/pengtang/Downloads/ARIA-src/src/ArUrg_2_0.cpp \
  /home/pengtang/Downloads/ARIA-src/include/ArExport.h \
  /home/pengtang/Downloads/ARIA-src/include/ariaOSDef.h \

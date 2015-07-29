@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArActionConstantVelocity.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArActionConstantVelocity.o: \
  /home/pengtang/Downloads/ARIA-src/src/ArActionConstantVelocity.cpp \
  /home/pengtang/Downloads/ARIA-src/include/ArExport.h \
  /home/pengtang/Downloads/ARIA-src/include/ariaOSDef.h \

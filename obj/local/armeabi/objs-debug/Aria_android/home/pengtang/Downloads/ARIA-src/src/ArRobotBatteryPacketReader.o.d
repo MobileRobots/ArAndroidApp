@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArRobotBatteryPacketReader.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArRobotBatteryPacketReader.o: \
  /home/pengtang/Downloads/ARIA-src/src/ArRobotBatteryPacketReader.cpp \
  /home/pengtang/Downloads/ARIA-src/include/ariaOSDef.h \
  /home/pengtang/Downloads/ARIA-src/include/ArExport.h \

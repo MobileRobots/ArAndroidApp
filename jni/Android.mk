@@ -180,10 +180,12 @@ include $(CLEAR_VARS)
 LOCAL_MODULE    := libArNetworking_android
 LOCAL_C_INCLUDES:=$(ARIA)/include $(ARIA)/ArNetworking/include
 LOCAL_CPPFLAGS:=-fno-exceptions -Wall -fPIC
-LOCAL_LDLIBS:=-ldl -lstdc++ # need -lpthread? does android have librt? or similar
+LOCAL_LDLIBS:=-lc -ldl -lstdc++ -llog -lGLESv2 # need -lpthread? does android have librt? or similar
 LOCAL_STATIC_LIBRARIES:=Aria_android
 LOCAL_CPP_FEATURES+=rtti
 LOCAL_SRC_FILES := \
+	native_ArjRobot.cpp\
+	native_gl_code.cpp\
 	$(ARIA)/ArNetworking/src/ArServerUserInfo.cpp \
 	$(ARIA)/ArNetworking/src/ArServerMode.cpp \
 	$(ARIA)/ArNetworking/src/ArServerHandlerMapping.cpp \

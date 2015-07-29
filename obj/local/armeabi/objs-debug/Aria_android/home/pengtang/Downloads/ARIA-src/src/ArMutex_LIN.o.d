@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArMutex_LIN.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArMutex_LIN.o: \
  /home/pengtang/Downloads/ARIA-src/src/ArMutex_LIN.cpp \
  /home/pengtang/Downloads/ARIA-src/include/ArExport.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/errno.h \
@@ -10,7 +10,8 @@ obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/errno.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/errno-base.h \
  /home/pengtang/Downloads/ARIA-src/include/ariaOSDef.h \
- /home/pengtang/Downloads/ARIA-src/include/ArMutex.h jni/pthread.h \
+ /home/pengtang/Downloads/ARIA-src/include/ArMutex.h \
+ /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/pthread.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/time.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/sys/time.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/sys/types.h \
@@ -106,7 +107,7 @@ obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/
 
 /home/pengtang/Downloads/ARIA-src/include/ArMutex.h:
 
-jni/pthread.h:
+/home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/pthread.h:
 
 /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/time.h:
 

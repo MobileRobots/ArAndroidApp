@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArCondition_LIN.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArCondition_LIN.o: \
  /home/pengtang/Downloads/ARIA-src/src/ArCondition_LIN.cpp \
  /home/pengtang/Downloads/ARIA-src/include/ArExport.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/errno.h \
@@ -36,7 +36,8 @@ obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/string.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/malloc.h \
  /home/pengtang/Downloads/ARIA-src/include/ariaOSDef.h \
- /home/pengtang/Downloads/ARIA-src/include/ArCondition.h jni/pthread.h \
+ /home/pengtang/Downloads/ARIA-src/include/ArCondition.h \
+ /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/pthread.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/signal.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/asm/sigcontext.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/linux/signal.h \
@@ -131,7 +132,7 @@ obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/
 
 /home/pengtang/Downloads/ARIA-src/include/ArCondition.h:
 
-jni/pthread.h:
+/home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/pthread.h:
 
 /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/signal.h:
 

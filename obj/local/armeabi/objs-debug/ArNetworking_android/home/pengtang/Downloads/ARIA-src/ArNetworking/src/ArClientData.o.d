@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/ArNetworking_android//home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArClientData.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/ArNetworking_android//home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArClientData.o: \
  /home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArClientData.cpp \
  /home/pengtang/Downloads/ARIA-src/include/Aria.h \
  /home/pengtang/Downloads/ARIA-src/include/ariaOSDef.h \

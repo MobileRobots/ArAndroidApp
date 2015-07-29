@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArNetServer.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/ArNetServer.o: \
  /home/pengtang/Downloads/ARIA-src/src/ArNetServer.cpp \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/ctype.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/sys/cdefs.h \

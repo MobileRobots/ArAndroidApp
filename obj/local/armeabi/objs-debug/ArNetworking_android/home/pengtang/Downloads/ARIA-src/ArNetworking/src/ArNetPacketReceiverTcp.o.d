@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/ArNetworking_android//home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArNetPacketReceiverTcp.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/ArNetworking_android//home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArNetPacketReceiverTcp.o: \
  /home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArNetPacketReceiverTcp.cpp \
  /home/pengtang/Downloads/ARIA-src/include/Aria.h \
  /home/pengtang/Downloads/ARIA-src/include/ariaOSDef.h \

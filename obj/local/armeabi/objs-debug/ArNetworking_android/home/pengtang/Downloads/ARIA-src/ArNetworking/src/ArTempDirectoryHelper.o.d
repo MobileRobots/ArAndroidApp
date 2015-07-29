@@ -1,4 +1,4 @@
-obj/local/armeabi/objs-debug/ArNetworking_android//home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArTempDirectoryHelper.o: \
+/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/ArNetworking_android//home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArTempDirectoryHelper.o: \
  /home/pengtang/Downloads/ARIA-src/ArNetworking/src/ArTempDirectoryHelper.cpp \
  /home/pengtang/Downloads/ARIA-src/include/ArExport.h \
  /home/pengtang/Downloads/ARIA-src/ArNetworking/include/ArTempDirectoryHelper.h \
