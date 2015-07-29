@@ -24,15 +24,22 @@ Activities, access via tabs or other mechanism:
         * Enter IP address or host name of server, or select from a list
         * ((Store list of recently used addresses))
         * ((Use service discovery to find servers runninng on the same network))
+        -> How? Use ArClientBase to connect.
     * General status and menu of actions/modes
-        * Display info from "update" (X, Y, Th, Vel, Battery [volts or %], etc.
+        * Display robot state updates (X, Y, Th, Vel, Battery [volts or %], etc.
+          -> How? Use ArClientHandlerRobotUpdate to request and receive info
         * Buttons for major modes:
           * Dock
+            -> requestOnce("dock")
           * ((Home))
+            -> requestOnce("home")
           * ((Wander))
+            -> requestOnce("wander")
           * ((Tour Goals))
           * Start/Stop Mapping (Toggle)
+            -> request "mappingStart" and "mappingEnd".  Receive "mappingStatusBroadcast" messages to set state of toggle
           * ((Localize to Dock?? Localize to Home??))
+      
     * Drive/Teleoperate
         * Drag to teleoperate the robot
     * Goals
@@ -40,10 +47,12 @@ Activities, access via tabs or other mechanism:
           ARNL to go to that goal
     * Commands
           * Everything from "custom commands"
+          -> get list with listCommands and listStringCommands requests
     * Detailed Info
-        * Display server mode and status
-        * Display info from "update" (X, Y, Th, Vel, Battery [volts or %], etc.
+        * Display server mode and status (use ArClientHandlerRobotUpdate)
+        * Display info from "update" (X, Y, Th, Vel, Battery [volts or %], etc. (use ArClientHandlerRobotUpdate)
         * Display table of everyhing from String Info
+          -> get list by requesting "getStringsInfo", get values by requesting "getStrings"
     * ((Config))
     * ((Log))
     * ((Map with drawings and localize to point))
