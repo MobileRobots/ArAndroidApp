@@ -1,6 +1,5 @@
-/home/pengtang/Downloads/today/obj/local/armeabi/objs-debug/ArNetworking_android/native_ArjRobot.o: \
- /home/pengtang/Downloads/today/jni/native_ArjRobot.cpp \
- /home/pengtang/Downloads/today/jni/native_ArjRobot.h \
+obj/local/armeabi/objs-debug/ArNetworking_android/native_ArjRobot.o: \
+ jni/native_ArjRobot.cpp jni/native_ArjRobot.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/jni.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/sys/cdefs.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/sys/cdefs_elf.h \
@@ -298,7 +297,7 @@
  /home/pengtang/Downloads/ARIA-src/ArNetworking/include/ArServerModeIdle.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/android/log.h
 
-/home/pengtang/Downloads/today/jni/native_ArjRobot.h:
+jni/native_ArjRobot.h:
 
 /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/jni.h:
 

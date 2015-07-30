@@ -61,6 +61,9 @@ public class ArjRobot implements Runnable {
 	/** Stop the robot */
 	public native int stop();
 	
+	/** Send the robot to dock */
+	public native int dock();
+	
 	/** Wait for current goal to complete, or timeout in specified ms */
 	public native int waitGoalDone(int timeout);
 

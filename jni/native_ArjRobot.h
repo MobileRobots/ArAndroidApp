@@ -42,6 +42,14 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_stop
 
 /*
  * Class:     com_adept_arandroid_ArjRobot
+ * Method:    dock
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_dock
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_adept_arandroid_ArjRobot
  * Method:    waitGoalDone
  * Signature: (I)I
  */

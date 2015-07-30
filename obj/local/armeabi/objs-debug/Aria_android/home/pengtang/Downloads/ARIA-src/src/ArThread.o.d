@@ -13,7 +13,7 @@ obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/
  /home/pengtang/Applications/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/list \
  /home/pengtang/Downloads/ARIA-src/include/ArThread.h \
  /home/pengtang/Applications/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/map \
- jni/pthread.h \
+ /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/pthread.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/time.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/sys/time.h \
  /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/sys/types.h \
@@ -84,7 +84,7 @@ obj/local/armeabi/objs-debug/Aria_android//home/pengtang/Downloads/ARIA-src/src/
 
 /home/pengtang/Applications/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/map:
 
-jni/pthread.h:
+/home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/pthread.h:
 
 /home/pengtang/Applications/android-ndk/platforms/android-21/arch-arm/usr/include/time.h:
 

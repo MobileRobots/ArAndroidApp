@@ -401,6 +401,17 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_stop
 }
 
 /** 
+ Send the robot to dock
+*/
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_dock
+  (JNIEnv *env, jobject obj)
+{
+	debugPrint("Send the robot to dock");
+	myClient.requestOnce("dock");
+	return 1;
+}
+
+/** 
  Block until goal complete or timeout occurs
 */
 JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_waitGoalDone

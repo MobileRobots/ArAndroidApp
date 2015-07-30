@@ -57,6 +57,7 @@ public class ActionsActivity extends ListActivity {
     				break;
     			case 2:
     				if (robot.connected) {
+    					robot.dock();
     					Toast.makeText(getApplicationContext(), "Sending to Dock...", 1).show();
     				}
     				break;
