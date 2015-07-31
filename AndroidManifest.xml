@@ -6,7 +6,7 @@
 
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 	
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" >
         <activity android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar" android:name="MainActivity">
             <intent-filter>
@@ -18,5 +18,6 @@
 		<activity android:name="ActionsActivity"></activity>
 		<activity android:name="GoalsActivity"
 				  android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name="TeleopActivity"></activity>
     </application>
 </manifest>

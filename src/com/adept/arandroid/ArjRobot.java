@@ -66,6 +66,18 @@ public class ArjRobot implements Runnable {
 	
 	/** Wait for current goal to complete, or timeout in specified ms */
 	public native int waitGoalDone(int timeout);
+	
+	/** Teleop mode, move robot forward */
+	public native int forward();
+	
+	/** Teleop mode, spin robot clockwise */
+	public native int spin_clockwise();
+	
+	/** Teleop mode, running on reverse mode */
+	public native int backward();
+	
+	/**  */
+	public native int spin_counterclockwise();
 
 	/** Get robot status array 
 	 * 	status[0] = voltage

@@ -35,9 +35,11 @@ public class ActionsActivity extends ListActivity {
     	final Intent goalsIntent = new Intent().setClass(this, GoalsActivity.class);
     	//final Intent connectIntent = new Intent().setClass(this, ConnectActivity.class);
     	
+    	final Intent TeleopIntent = new Intent().setClass(this, TeleopActivity.class);
+    	
     	// Handle clicks
     	lv.setClickable(true);
-    	lv.performItemClick(getListView(), 4, 0);
+    	lv.performItemClick(getListView(), 5, 0);
     	lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
     			if (!robot.connected) {
@@ -61,13 +63,17 @@ public class ActionsActivity extends ListActivity {
     					Toast.makeText(getApplicationContext(), "Sending to Dock...", 1).show();
     				}
     				break;
+    			case 3:
+    				if(robot.connected) {
+    					startActivity(TeleopIntent);
+    				}
     			}
     		}
     	});
     }
     
     static final String[] ACTIONS = new String[] {
-    	"Goto Goal", "Stop", "Dock"
+    	"Goto Goal", "Stop", "Dock", "Teleop"
     };
 
 

@@ -50,6 +50,38 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_dock
 
 /*
  * Class:     com_adept_arandroid_ArjRobot
+ * Method:    forward
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_forward
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_adept_arandroid_ArjRobot
+ * Method:    spin_clockwise
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_spin_clockwise
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_adept_arandroid_ArjRobot
+ * Method:    backward
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_backward
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_adept_arandroid_ArjRobot
+ * Method:    spin_counterclockwise
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_spin_counterclockwise
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_adept_arandroid_ArjRobot
  * Method:    waitGoalDone
  * Signature: (I)I
  */

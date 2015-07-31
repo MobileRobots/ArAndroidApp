@@ -221,6 +221,7 @@ void OutputHandler::handleMap(ArNetPacket *packet)
 	}
 }
 
+
 /** 
  OUTPUTHANDLER::Sets the goal we are going to 
 */
@@ -408,6 +409,58 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_dock
 {
 	debugPrint("Send the robot to dock");
 	myClient.requestOnce("dock");
+	return 1;
+}
+
+void sendInput(double myTransRatio, double myRotRatio, double myThrottle, double myLatRatio)
+{
+  /* This method is called by the main function to send a ratioDrive
+   * request with our current velocity values. If the server does 
+   * not support the ratioDrive request, then we abort now: */
+  //if(!myClient->dataExists("ratioDrive")) return;
+
+  /* Construct a ratioDrive request packet.  It consists
+   * of three doubles: translation ratio, rotation ratio, and an overall scaling
+   * factor. */
+  ArNetPacket packet;
+  packet.doubleToBuf(myTransRatio);
+  packet.doubleToBuf(myRotRatio);
+  packet.doubleToBuf(myThrottle); // this is an additional amount (percentage) that is applied to each of the trans,rot,lat velocities. 
+  packet.doubleToBuf(myLatRatio);
+//  if (myPrinting) printf("ArClientRatioDrive: Sending ratioDrive request\n");
+  myClient.requestOnce("ratioDrive", &packet);
+}
+
+
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_forward
+  (JNIEnv *env, jobject obj)
+{
+	debugPrint("Move the robot forward");
+	sendInput(0.5, 0, 1, 0);
+	return 1;
+}
+
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_spin_clockwise
+  (JNIEnv *env, jobject obj)
+{
+	debugPrint("Rotate the robot clockwise");
+	sendInput(0, 0.5, 1, 0);
+	return 1;
+}
+
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_backward
+  (JNIEnv *env, jobject obj)
+{
+	debugPrint("Move the robot backward");
+	sendInput(-0.5, 0, 1, 0);
+	return 1;
+}
+
+JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_spin_counterclockwise
+  (JNIEnv *env, jobject obj)
+{
+	debugPrint("Rotate the robot counterclockwise");
+	sendInput(0, -0.5, 1, 0);
 	return 1;
 }
 

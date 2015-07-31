@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent">
+    
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Spin_Counter_Clockwise"
+        android:id="@+id/button4"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Backward"
+        android:id="@+id/button3"
+        android:layout_gravity="bottom"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Stop"
+        android:id="@+id/button0"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Forward"
+        android:id="@+id/button1"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Spin_Clockwise"
+        android:id="@+id/button2"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1" />
+
+</LinearLayout>
