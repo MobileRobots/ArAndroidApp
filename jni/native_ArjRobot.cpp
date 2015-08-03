@@ -436,7 +436,7 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_forward
   (JNIEnv *env, jobject obj)
 {
 	debugPrint("Move the robot forward");
-	sendInput(0.5, 0, 1, 0);
+	sendInput(50, 0, 100, 0);
 	return 1;
 }
 
@@ -444,7 +444,7 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_spin_clockwise
   (JNIEnv *env, jobject obj)
 {
 	debugPrint("Rotate the robot clockwise");
-	sendInput(0, 0.5, 1, 0);
+	sendInput(0, 50, 100, 0);
 	return 1;
 }
 
@@ -452,7 +452,7 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_backward
   (JNIEnv *env, jobject obj)
 {
 	debugPrint("Move the robot backward");
-	sendInput(-0.5, 0, 1, 0);
+	sendInput(-50, 0, 100, 0);
 	return 1;
 }
 
@@ -460,7 +460,7 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_spin_counterclockwise
   (JNIEnv *env, jobject obj)
 {
 	debugPrint("Rotate the robot counterclockwise");
-	sendInput(0, -0.5, 1, 0);
+	sendInput(0, -50, 100, 0);
 	return 1;
 }
 

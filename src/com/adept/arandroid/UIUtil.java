@@ -13,7 +13,7 @@ public class UIUtil {
 	public final String IP_HOME = "192.168.0.111";
 	
 	/** IP address at work */
-	public final String IP_PC = "10.0.153.101";
+	public final String IP_PC = "10.0.153.110";
 	
 	/** IP address of Powerbot */
 	public final String IP_PB = "172.21.1.141";

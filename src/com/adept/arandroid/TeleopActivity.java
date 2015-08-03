@@ -1,7 +1,7 @@
 package com.adept.arandroid;
 
 import com.adept.arandroid.R;
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class TeleopActivity extends ListActivity {
+public class TeleopActivity extends Activity {
 
 	private ArjRobot robot;
     /** Called when the activity is first created. */
@@ -21,8 +21,9 @@ public class TeleopActivity extends ListActivity {
     	
     	setContentView(R.layout.teleop);
     	final LinearLayout ll = (LinearLayout) findViewById(R.layout.teleop);
-    	
-    	ll.setClickable(true);
+
+    	// UI won't come out if this is here
+//    	ll.setClickable(true);
     	
     	
     	final Button button0 = (Button) findViewById(R.id.button0);
