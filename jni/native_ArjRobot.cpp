@@ -94,8 +94,16 @@ public:
 	void getMapPoints(double *points);
 	int getMapPointCount();
 	ArMap getMap();
+  void lock()
+  {
+    myMutex.lock();
+  }
+  void unlock()
+  {
+    myMutex.unlock();
+  }
 protected:
-	ArClientBase *myClient;
+	ArClientBase *gClient;
 	ArMap myMap;
 	JNIEnv *myEnv;
 	const char *myCurrentGoal;
@@ -106,8 +114,9 @@ protected:
 	double myStatus[8];
 	double myPoints[128000];
 	int myPointCount;
+  ArMutex myMutex;
 
-	bool gotHeader;
+	bool myGotMapHeader;
 	ArFunctor1C<OutputHandler, ArNetPacket *> myHandleServerStatusCB;	
 	ArFunctor1C<OutputHandler, ArNetPacket *> myHandleGoalListCB;
 	ArFunctor1C<OutputHandler, ArNetPacket *> myHandleMapCB;
@@ -117,23 +126,25 @@ protected:
  OUTPUTHANDLER::Constructor 
 */
 OutputHandler::OutputHandler(ArClientBase *client) :
-	myClient(client),
+	gClient(client),
 	myHandleServerStatusCB(this, &OutputHandler::handleServerStatus),
 	myHandleGoalListCB(this, &OutputHandler::handleGoalList),
 	myHandleMapCB(this, &OutputHandler::handleMap)
 {
 	// Add handlers and start requests
-  myClient->addHandler("update", &myHandleServerStatusCB);
-  myClient->addHandler("getGoals", &myHandleGoalListCB);
-  myClient->addHandler("getMapBinary", &myHandleMapCB);
-  myClient->requestOnce("getGoals");
-  myClient->request("update", 33);
+  gClient->addHandler("update", &myHandleServerStatusCB);
+  gClient->addHandler("getGoals", &myHandleGoalListCB);
+  gClient->addHandler("getMapBinary", &myHandleMapCB);
+  gClient->requestOnce("getGoals");
+  gClient->request("update", 33);
   
   // Initialize member vars
+  myMutex.lock();
   myServerStatus = 1;
   myCurrentGoal = "none";
-  gotHeader = false;
+  myGotMapHeader = false;
   myPointCount = 0;
+  myMutex.unlock();
 }
 
 /** 
@@ -141,7 +152,7 @@ OutputHandler::OutputHandler(ArClientBase *client) :
 */
 OutputHandler::~OutputHandler(void)
 {
-	myClient->requestStop("update");
+	gClient->requestStop("update");
 }
 
 /** 
@@ -149,6 +160,7 @@ OutputHandler::~OutputHandler(void)
 */
 void OutputHandler::handleServerStatus(ArNetPacket *packet) 
 {
+  myMutex.lock();
   char status[64];
   char mode[64];
   packet->bufToStr(status, 63);
@@ -174,6 +186,8 @@ void OutputHandler::handleServerStatus(ArNetPacket *packet)
   } else {
     myServerStatus = 1;		/* Arrived at goal */
   }
+
+  myMutex.unlock();
 }
 
 /**
@@ -181,13 +195,18 @@ void OutputHandler::handleServerStatus(ArNetPacket *packet)
 */
 void OutputHandler::handleGoalList(ArNetPacket *packet)
 {
+  myMutex.lock();
 	myGoalsCount = 0;
   for(int i = 0; packet->getReadLength() < packet->getLength(); i++) {
     packet->bufToStr(myGoals[i], 255);
     if(strlen(myGoals[i]) == 0)
+    {
+        myMutex.unlock();
         return;
+    }
     myGoalCount++;
   }
+  myMutex.unlock();
 }
 
 /**
@@ -195,15 +214,16 @@ void OutputHandler::handleGoalList(ArNetPacket *packet)
 */
 void OutputHandler::handleMap(ArNetPacket *packet)
 {
+  myMutex.lock();
 	int skip = 0;
 	int numToSkip = 8; // filter the points, we don't need a lot on a small screen.
-	if (!gotHeader) {
+	if (!myGotMapHeader) {
 		char buffer[256];
 		packet->bufToStr(buffer, sizeof(buffer));
 		if (buffer[0] == '\0')
-			gotHeader = true;
+			myGotMapHeader = true;
 	}
-	if (gotHeader) {
+	if (myGotMapHeader) {
 		double cnt = (double)packet->bufToByte4();
 		if (cnt < 1001) {
 			for (int i = 0; i < (int)cnt; i++) {
@@ -219,6 +239,7 @@ void OutputHandler::handleMap(ArNetPacket *packet)
 			}
 		} 
 	}
+  myMutex.unlock();
 }
 
 
@@ -292,14 +313,14 @@ public:
 	InputHandler(ArClientBase *client);
 	virtual ~InputHandler(void);
 protected:
-	ArClientBase *myClient;
+	ArClientBase *gClient;
 };
 
 /* 
  INPUTHANDLER::Constructor 
 */
 InputHandler::InputHandler(ArClientBase *client) :
-	myClient(client)
+	gClient(client)
 {
 
 }
@@ -316,12 +337,13 @@ InputHandler::~InputHandler(void)
  * NATIVE FUNCTIONS
  ******************************************************************************/
  
-static ArClientBase myClient;
-static InputHandler *myInputHandler;
-static OutputHandler *myOutputHandler;
-static int myServerStatus;
-static double myRobotStatus[8];
-static bool myShutdown;
+static ArClientBase gClient;
+//static InputHandler *gInputHandler; // unused
+static OutputHandler *gOutputHandler;
+static ArMutex gMutex; // Locked during access to global variables below:
+static int gGoalStatus;
+static double gRobotStatus[8];
+static bool gShutdown;
 
 /** 
  Initialize the robot connection 
@@ -336,32 +358,44 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_initialize
 	Aria::init();
   ArLog::setFunctor(new ArGlobalFunctor1<const char*>(ariaLogDebugPrint));
 	debugPrintS("Connecting to ", cHost);
-	if (!myClient.blockingConnect(cHost, port, true, NULL, NULL, NULL)) {
+	if (!gClient.blockingConnect(cHost, port, true, NULL, NULL, NULL)) {
 		debugPrint("Error connecting");
 		return -1;
 	}
 	debugPrint("Connected");
 	
 	// Run the client connection in a different thread  
-	myClient.runAsync();
+	gClient.runAsync();
 	
 	// Download the map, maybe move this to it's own function later
+
 	debugPrint("getting map");
-	myClient.requestOnce("getMapBinary");
+	gClient.requestOnce("getMapBinary");
 	
-	// Create the OutputHandler
-	myOutputHandler = new OutputHandler(&myClient);
+	// Create the OutputHandler and InputHandler
+	gOutputHandler = new OutputHandler(&gClient);
 	
 	/* Block until the connection is closed.  We will use this time to get
 	 * status update information at a regular rate. */
-	myShutdown = false;
-	while (myClient.getRunningWithLock() && !myShutdown) {
+  gMutex.lock();
+	gShutdown = false;
+  gMutex.unlock();
+
+	while (gClient.getRunningWithLock()) {
     ArUtil::sleep(100);
-    myServerStatus = myOutputHandler->getServerStatus();
-    myOutputHandler->getRobotStatus(myRobotStatus);
+    gMutex.lock();
+    if (gShutdown) {
+      gMutex.unlock();
+      break;
+    }
+    gOutputHandler->lock();
+    gGoalStatus = gOutputHandler->getServerStatus();
+    gOutputHandler->getRobotStatus(gRobotStatus);
+    gOutputHandler->unlock();
+    gMutex.unlock();
   }
   debugPrint("Shutting down Aria");
-  myClient.disconnect();
+  gClient.disconnect();
   Aria::shutdown();
   return 0;
 }
@@ -372,7 +406,10 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_initialize
 JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_shutdown
   (JNIEnv *, jobject)
 {
-	myShutdown = true;
+  gMutex.lock();
+	gShutdown = true;
+  gMutex.unlock();
+  return 1;
 }
 
 /** 
@@ -382,12 +419,15 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_gotoGoal
   (JNIEnv *env, jobject obj, jstring goal)
 {
 	const char *cGoal = env->GetStringUTFChars(goal, 0);
+  gOutputHandler->lock();
 	debugPrintS("Sending to goal ", cGoal);
-	myOutputHandler->setGoal(cGoal);
+	gOutputHandler->setGoal(cGoal);
+  gOutputHandler->unlock();
 	ArUtil::sleep(100);
-	myClient.requestOnceWithString("gotoGoal", cGoal);
+	gClient.requestOnceWithString("gotoGoal", cGoal);
 	debugPrint("On its way");
 	//env->ReleaseStringUTFChars(goal, cGoal);
+  return 1;
 }
 
 /** 
@@ -397,7 +437,7 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_stop
   (JNIEnv *env, jobject obj)
 {
 	debugPrint("Stopping robot");
-	myClient.requestOnce("stop");
+	gClient.requestOnce("stop");
 	return 1;
 }
 
@@ -408,7 +448,7 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_dock
   (JNIEnv *env, jobject obj)
 {
 	debugPrint("Send the robot to dock");
-	myClient.requestOnce("dock");
+	gClient.requestOnce("dock");
 	return 1;
 }
 
@@ -417,7 +457,7 @@ void sendInput(double myTransRatio, double myRotRatio, double myThrottle, double
   /* This method is called by the main function to send a ratioDrive
    * request with our current velocity values. If the server does 
    * not support the ratioDrive request, then we abort now: */
-  //if(!myClient->dataExists("ratioDrive")) return;
+  //if(!gClient->dataExists("ratioDrive")) return;
 
   /* Construct a ratioDrive request packet.  It consists
    * of three doubles: translation ratio, rotation ratio, and an overall scaling
@@ -428,7 +468,7 @@ void sendInput(double myTransRatio, double myRotRatio, double myThrottle, double
   packet.doubleToBuf(myThrottle); // this is an additional amount (percentage) that is applied to each of the trans,rot,lat velocities. 
   packet.doubleToBuf(myLatRatio);
 //  if (myPrinting) printf("ArClientRatioDrive: Sending ratioDrive request\n");
-  myClient.requestOnce("ratioDrive", &packet);
+  gClient.requestOnce("ratioDrive", &packet);
 }
 
 
@@ -471,15 +511,20 @@ JNIEXPORT jint JNICALL Java_com_adept_arandroid_ArjRobot_waitGoalDone
   (JNIEnv *env, jobject obj, jint timeout)
 {
 	int cnt = 0;
-	do {
+	while(true) {
 		ArUtil::sleep(100);
 		if (cnt > (timeout/100)) {
 			debugPrint("timeout moving robot");
 			return -2;
 		}
 		cnt++;
-	} while (myServerStatus > 1);
-	return myServerStatus;
+    gMutex.lock();
+    int status = gGoalStatus;
+    gMutex.unlock();
+    if(status > 1)
+      return status;
+	} 
+	return -2;
 }
 
 /** 
@@ -496,7 +541,7 @@ JNIEXPORT jdoubleArray JNICALL Java_com_adept_arandroid_ArjRobot_getRobotStatus
 	int i;
 	jdouble fill[8];
 	for (i = 0; i < 8; i++) {
-		fill[i] = myRobotStatus[i];
+		fill[i] = gRobotStatus[i];
 	}
 	env->SetDoubleArrayRegion(status, 0, 8, fill);
 	return status;
@@ -509,7 +554,9 @@ JNIEXPORT jobjectArray JNICALL Java_com_adept_arandroid_ArjRobot_getGoals
   (JNIEnv *env, jobject obj)
 {
 	debugPrint("getting goals");
-	jobjectArray result = myOutputHandler->getGoals(env);
+  gOutputHandler->lock();
+	jobjectArray result = gOutputHandler->getGoals(env);
+  gOutputHandler->unlock();
 	return result;
 }
 
@@ -520,13 +567,16 @@ JNIEXPORT jdoubleArray JNICALL Java_com_adept_arandroid_ArjRobot_getMap
   (JNIEnv *env, jobject obj)
 {
 	jdoubleArray out;
-	int cnt = myOutputHandler->getMapPointCount();
+  gOutputHandler->lock();
+	int cnt = gOutputHandler->getMapPointCount();
 	out = env->NewDoubleArray(cnt);
 	if (out == NULL) {
+    gOutputHandler->unlock();
 		return NULL;
 	}
 	double points[cnt];
-	myOutputHandler->getMapPoints(points);
+	gOutputHandler->getMapPoints(points);
+  gOutputHandler->unlock();
 	int i;
 	jdouble fill[cnt];
 	for (i = 0; i < cnt; i++) {
