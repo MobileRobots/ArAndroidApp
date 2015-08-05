@@ -31,3 +31,6 @@ proguard/
 *.so
 *.a
 *.o.d
+
+# Mac files
+.DS_Store
