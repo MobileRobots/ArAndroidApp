@@ -25,3 +25,9 @@ proguard/
 
 # Log Files
 *.log
+
+# Compiled native code
+*.o
+*.so
+*.a
+*.o.d
